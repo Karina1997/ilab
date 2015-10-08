@@ -1,0 +1,64 @@
+#include<stdio.h>
+#include <windows.h>
+#include<iostream>
+#include<stdlib.h>
+
+	void push(char c,int *tos, char *St);
+	void pop(int *tos, char *St);
+int main()
+{
+	char ch;
+	int n = 0;
+	int *tos = &n;
+	const int max  = 100;
+	char St[max] = {};
+	while ((ch=getchar()) != '\n') 
+
+	{    
+
+		switch (ch) {
+			case'>': 
+				if (St[*tos-1] == '{' || St[*tos-1] == '(' || St[*tos-1] ==' [') 
+					{ printf("incorrect\n"); system("pause"); exit (0);}
+				if (St[*tos-1] == '<') 
+					{pop(tos, St); break;} 
+
+			case')': 
+				if (St[*tos-1] == '{' || St[*tos-1] == '<' || St[*tos-1] == '[') 
+					{ printf("incorrect\n");  system("pause"); exit (0);}
+				if (St[*tos-1] == '(') 
+					{pop(tos, St); break;}
+			case'}': 
+				if (St[*tos-1] == '(' || St[*tos-1]=='<' || St[*tos-1] == '[') 
+					{ printf("incorrect\n");  system("pause"); exit (0);}
+				if (St[*tos-1] == '{') 
+					{pop(tos, St); break;}
+			case']': 
+				if (St[*tos-1] == '{' || St[*tos-1] == '<' || St[*tos-1] == '{') 
+					{ printf("incorrect\n");  system("pause"); exit (0);}
+				if (St[*tos-1] == '[') 
+					{pop(tos, St); break;}
+			default:   
+				push(ch, tos, St); 
+		}
+	}
+	if (St[*tos] ==0) 
+		printf("correct\n"); 
+	else  
+		printf("incorrect\n");
+	system("pause");
+	return 0 ;
+}
+
+void push(char c,int *tos, char *St)
+{
+	St[*tos] = c; 
+	(*tos)++; 
+}
+
+void pop(int *tos, char *St) 
+{
+	(*tos)--;
+	if (*tos >= 0)  
+		St[*tos] = 0;
+}
