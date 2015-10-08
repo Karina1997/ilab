@@ -1,0 +1,57 @@
+#include <stdio.h>
+#include <stdlib.h.>
+#include <iostream>
+
+
+char pop(int * tos, char * St);
+void push(char c, int * tos, char * St);
+char* Itoa (int num,int * tos, char * St);
+ 
+int main ()
+{
+	const int max = 100;
+    char St[max]={};
+	int n = 0;
+	int *tos = &n;
+	int num ;
+
+	scanf ("%d", &num);
+
+    std :: cout << Itoa (num, tos, St);
+	system ("pause");
+	return 0;
+}
+
+void push(char c, int * tos, char * St)
+{
+	St[*tos] = c;
+	(*tos)++; 
+}
+
+char pop(int * tos, char * St) 
+{
+	(*tos)--;
+	if (*tos >=0)  St[*tos]=0;} 
+	
+
+char* Itoa (int num,int * tos, char * St)
+{
+	int i = 0;
+	char * t;
+	for (i = 0; num > 0; i++)
+	{
+		push(num % 10+'0', tos, St);
+		num = num/10;
+	}
+
+	t = (char*) malloc(i*sizeof(char));
+
+	for (int j = 0; j < i; j++)
+	{
+		*(t+j) = pop(tos, St);
+		
+
+	}
+	*(t+i) = 0;
+	return t;
+}
