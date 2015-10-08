@@ -1,0 +1,107 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<ctype.h>
+#include <iostream>
+#include <conio.h>
+
+int Strlen(const char *a)
+{
+	int i = 0;
+	while (*a!=0)
+	{
+		i++;
+		a+=1;
+	}
+	return i;
+}
+void Strrev (char *a)
+{
+	int t= Strlen(a);
+	char c;
+	for (int i=0;i<=t / 2 - 1; i++)
+	{
+		c=a[i];
+		a[i]=a[t-i-1];
+		a[t-i-1]=c;
+	}
+}
+
+int Strstr (const char *a, const char *b)
+
+{	
+	bool l = false ;
+	int t = Strlen(a);
+	int ta = Strlen(b);
+	int i = 0;
+	while (i <= t-ta && l != true)
+	{
+		if (a[i]==b[0])
+		{
+			for (int j=0;j<ta;j++)
+			{
+				if (a[i+j] != b[j]) break ;
+				l = true;
+		    }
+	    }
+		i++;
+	}
+	if (l==true) return i -1;
+		else return 0; 
+}
+
+int atoi(const char *a)
+{
+	int i,n = 0;
+	for (i = 0; isdigit(a[i]); ++i)
+		n = n*10+(a[i]- '0');
+	return n ;
+}
+
+ char *itoa(int l)
+{
+	char *a;
+	int t =l;
+	int len = 0;
+	while (t>0) 
+	{
+		t=t/10;
+		len++;
+	}
+	a = (char*) malloc(len*sizeof(char));
+	for (int i=len-1; i>=0; i--)
+	{
+		a[i] = l%10 + '0';
+		l = l/10;
+	}
+		return a;
+}
+
+int Strcmp(const char *a, const char *b) 
+{
+	if (Strlen(a)!=Strlen(b)) return 0; 
+	else {
+		for (int i = 0; i<Strlen(a);i++)  {
+			if (a[i] != b[i]) {return 0; break;}; if (i == Strlen(a)) return 1;} }
+}
+
+	
+void Strcat (char a[], const char b[])
+{ 
+	char *t = a + Strlen(a);
+	t = (char*) malloc(Strlen(b)*sizeof(char));
+for (int i = Strlen(a)-1, j = 0; b[j] != 0 || a[i] != 0; j++, i++)
+{ 
+a[i] = b[j];
+}
+}
+
+void Strcpy (char a[], const char b[], int num)
+{    printf("%d", a[1]);
+	char *t = a + Strlen(a);
+	t = (char*) malloc(Strlen(b)*sizeof(char));
+for (int i = Strlen(a)+Strlen(b)-1, j = Strlen(b)-1; j>=0; j--, i--)
+{ printf("%d", a[i]);
+a[i] = a[i-num]; //printf("%d", a[i]);
+a[i-num]= b[j]; //printf("%d", a[i-num]);
+}
+}
