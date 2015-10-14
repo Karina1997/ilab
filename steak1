@@ -1,0 +1,103 @@
+#include<stdlib.h>
+#include<stdio.h>
+#include <assert.h>
+struct steak 
+{
+	int leng;
+	int pos;
+	char * st;
+};
+
+bool steak_ok(steak * ps);
+void steak_dump(steak * ps);
+void steak_ctor(steak * ps);
+void steak_dtor(steak * ps);
+void push(steak * ps, char c);
+void pop(steak * ps);
+char peek(steak * ps);
+
+int main()
+{
+	steak ps;
+    steak *pps = &ps;
+	steak_ctor(pps);
+	char c = 'a';
+	push(pps, c);
+	 c = 'b';
+	push(pps, c);
+	c = 'v';
+	push(pps, c);
+	pop(pps);
+	printf("bool: %d",steak_ok(pps));
+	steak_dump(pps);
+	system("pause");
+}
+
+bool steak_ok(steak * ps)
+{
+	return ps && ps->leng && ps->pos && ps->st; 
+}
+
+void steak_dump(steak * ps)
+{
+	printf("\nlen:%d, pos:%d , el:%c, \nFull steak:", ps->leng, ps->pos, *(ps->st + ps->pos - 1 ));
+	for (int i= 0; i < ps->pos; i++) printf("%c, ",*(ps->st + i ));
+}
+
+void steak_ctor(steak * ps)
+{
+	assert(ps);
+	ps->st = (char*) malloc ( 10 * sizeof(char));
+	ps->pos = 0;
+	ps->leng = 10;
+
+}
+
+void steak_dtor(steak * ps)
+{
+	free(ps->st);
+	ps->pos = 0;
+	ps->leng = 0;
+
+}
+
+void push(steak * ps, char c)
+{
+	if  ((ps->pos) < (ps->leng))
+	{
+		*(ps->st + (ps->pos)) = c;
+	}
+	else 
+	{
+		ps->st = (char*) realloc (ps->st, 10 * sizeof(char));
+		ps->leng += 10;
+		*(ps->st + ps->pos) = c;
+	}
+	ps->pos++;
+}
+
+
+void pop(steak * ps)
+{
+	if (ps->pos == 0) 
+	{
+		printf("STACK_UNDERFLOW"); 
+		abort();
+	}
+	else 
+	{
+		ps->pos--;
+		*(ps->st + ps->pos) = 0;
+	}
+}
+
+char peek(steak * ps)
+{
+	if (ps->pos == 0) 
+	{
+		printf("STACK_UNDERFLOW"); 
+		abort();
+	}
+	else 
+		return *(ps->st + ps->pos- 1);
+}
