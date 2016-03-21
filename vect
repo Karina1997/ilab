@@ -5,6 +5,11 @@
 #include <assert.h>
 #include <clocale>
 
+//Add normal file extension(.h or .hhp) 
+
+//Add comments to your code.
+
+//Folow one codestyle
 
 using namespace std;
 
@@ -24,8 +29,8 @@ class CVector
 		CVector<T> operator -(CVector<T>&a);
 		void operator --();
 		void operator ++();
-		void operator +=(T);
-		void operator -=(T);
+		void operator +=(T);//this fucntions should be with vector as paraameter.
+		void operator -=(T);//
 		CVector<T>& operator =(CVector<T>&a);
 		bool operator ==(CVector<T>&a);
 		T operator [](int);
@@ -34,15 +39,15 @@ class CVector
 template <typename T>
 CVector<T>::CVector()
 {
-	size = 5;
+	size = 5;//that's not good. Change it to constant.
 	for(int i = 0; i< size; i++)
 		coord[i] = 0;
 }
 
 template <typename T>
-CVector<T>::CVector(int n)
+CVector<T>::CVector(int n)//better unsigned
 {
-	size = n;
+	size = n;//check for normal size
 	coord = new T [size];
 	for (int i = 0; i < size; i++)
 		cin >>coord[i];
@@ -50,7 +55,7 @@ CVector<T>::CVector(int n)
 
 template <typename T>
 CVector<T>::~CVector()
-{
+{//here should be checks
 	delete [] coord;
 	size = 0;
 };
@@ -75,7 +80,7 @@ void CVector<T>::Dump()
 template <typename T>
 CVector<T> CVector<T>::operator +(CVector<T>&a)
 {
-	if ( ok() == 0 || a.ok() == 0 ) {Dump(); a.Dump(); exit(-1);}
+	if ( ok() == 0 || a.ok() == 0 ) {Dump(); a.Dump(); exit(-1);}//here can be runtime errors if something not ok/
 	else {
 	if (a.size == size ) 
 	{
@@ -109,7 +114,7 @@ CVector<T> CVector<T>::operator -(CVector<T>&a)
 };
 
 template <typename T>
-void CVector<T>:: operator --()
+void CVector<T>:: operator --()//I'm not sure, linear algebra has decrement fucntion.
 {
 	if ( ok() == 0  ) {Dump(); exit(-1);}
 	else 
@@ -118,7 +123,7 @@ void CVector<T>:: operator --()
 };
 
 template <typename T>
-void CVector<T>:: operator ++()
+void CVector<T>:: operator ++()//the same as previos.
 {
 	if ( ok() == 0  ) {Dump(); exit(-1);}
 	else 
